@@ -1,15 +1,190 @@
 //MindsMend.org
 //MindsMend@gmail.com
-
-//Head Unit Coil Control//Plain Coded Pre Alpha Ver 00000001. Depending on the Arduino Used Alter Pin Values. 
-//This Should Work on ATMEGA 2560 Chips. 10 Channels Needed
-
 //By Brett Palmer 2020. Released GNU General Public License, version 2.
 //Free to use for Non Comercial Use only.
 
 //To Build your own Device, Building instructions will be up on MindsMend.org by 01/03/2020
+//Head Unit Coil Control//Plain Coded Pre Alpha Ver 00000001. Depending on the Arduino Used Alter Pin Values. 
+//This Should Work on ATMEGA 2560 Chips. 10 Channels Needed
 
 
+
+
+
+//Based on 8 Coil Setup (Timings)-
+//Primer 25ms = 8 Coil Setup.       (Primer 360 seconds)
+//Binding = 3.125ms = 8 Coil Setup. (Effector 840 seconds)
+
+//The Visual Cortex Is located at Back of Head.
+//     Left eye = Right Hemisphere
+//     Right eye = Left Hemisphere
+
+//Key:- the coils Fire in Anti Colckwise 
+// Direction For this Desired Effect.
+
+unsigned long Time = 0;
+//const float Runtime = 1000*60*60; //ms/sec/min = 1 hour.
+
+//Lights Can be uv 740nm> 1000nm< if want to be Invisable to eye
+// as Visual Cortex has been shown to react to light wavelenghts
+// beyond standard visual spectrum range at thease freaquencies.
+
+//This Device Will Use Standard Vis spec Band. (450nmBlue or SuperBrightWhite LED) 3.5v 50mA use 39R resistor  
+//EYE LED's Direct Refrence>Pin Address
+
+
+
+int RLight = 9;
+int LLight = 10;
+
+//Coils Direct Refrence>Pin Address
+int CoilA = 1; //1
+int CoilB = 2; //2
+int CoilC = 3; //3
+int CoilD = 4; //4
+int CoilE = 5; //5
+int CoilF = 6; //6
+int CoilG = 7; //7
+int CoilH = 8; //8
+
+int PinID = 0; //Track Fired Index.
+
+
+//Coil Array Refrence
+//int PinArray[] = {1,2,3,4,5,6,7,8,9,10};
+//int PinRaiseTime[10] = {0,25,50,75,100,125,150,175,25+-Hoffset,25+-Hoffset};//Last 2 are Right&Left Eye the fire time is 25ms but the order is set in main loop to be either side of rear coil!.
+
+
+
+//Eye Pins Clarification. so Fires R-Eye Coil L-Eye eg pin order 4,9,5,10,6
+
+
+
+
+void setup() {
+//Pin Mode: Set to Driver Mode for Mosfet Operation.
+pinMode(LLight, OUTPUT);
+pinMode(RLight, OUTPUT);
+
+pinMode(CoilA, OUTPUT);
+pinMode(CoilB, OUTPUT);
+pinMode(CoilC, OUTPUT);
+pinMode(CoilD, OUTPUT);
+pinMode(CoilE, OUTPUT);
+pinMode(CoilF, OUTPUT);
+pinMode(CoilG, OUTPUT);
+pinMode(CoilH, OUTPUT);
+
+
+
+//Pin Start Set All Outputs to off
+//Eyes
+digitalWrite(RLight, LOW);
+digitalWrite(LLight, LOW);
+
+//Brain
+digitalWrite(CoilA, LOW);
+digitalWrite(CoilB, LOW);
+digitalWrite(CoilC, LOW);
+digitalWrite(CoilD, LOW);
+digitalWrite(CoilE, LOW);
+digitalWrite(CoilF, LOW);
+digitalWrite(CoilG, LOW);
+digitalWrite(CoilH, LOW);
+}
+
+void loop() {
+//Loop through pins.
+//Timings = 1000ms/40hz T= 25ms  //Will use Capacitor To Create 3ms Rise/Fall Time.
+
+//360 second Loop
+//Coils
+for (int i = 0; i <= 360; i++) {
+digitalWrite(CoilA, HIGH); //1 on A       
+delay(2.5);
+digitalWrite(CoilH, LOW);  //8 off
+delay(20.0);
+digitalWrite(CoilB, HIGH); //2 on B
+delay(2.5);
+digitalWrite(CoilA, LOW);  //1 off
+delay(20.0);
+digitalWrite(CoilC, HIGH); //3 on C
+delay(2.5);
+digitalWrite(CoilB, LOW);  //2 off
+delay(20.0);
+digitalWrite(CoilD, HIGH); //4 on D
+digitalWrite(RLight, HIGH);
+delay(2.5);
+digitalWrite(LLight, HIGH);
+delay(2.5);
+digitalWrite(CoilC, LOW);  //3 off
+delay(17.5);
+digitalWrite(RLight, LOW);
+digitalWrite(CoilE, HIGH); //5 on E
+delay(2.5);
+digitalWrite(LLight, LOW);
+digitalWrite(CoilD, LOW);  //4 off
+delay(20.0);
+digitalWrite(CoilF, HIGH); //6 on F
+delay(2.5);
+digitalWrite(CoilE, LOW);  //5 off
+delay(20.0);
+digitalWrite(CoilG, HIGH); //7 on G
+delay(2.5);
+digitalWrite(CoilF, LOW);  //6 off
+delay(20.5);
+digitalWrite(CoilH, HIGH); //8 on H
+delay(2.5);
+digitalWrite(CoilG, LOW);  //7 off
+delay(20.0);
+}//end of 360 seconnd loop
+
+
+
+//Binding = 3.125ms = 8 Coil Setup. (Effector 840 seconds)
+//840 Seconds Binding Mode
+for (int Binding = 0; Binding ++;Binding >=840){
+digitalWrite(CoilA, HIGH); //1 on A       
+delay(0.125);
+digitalWrite(CoilH, LOW);  //8 off
+delay(3);
+digitalWrite(CoilB, HIGH); //2 on B
+delay(0.125);
+digitalWrite(CoilA, LOW);  //1 off
+delay(3);
+digitalWrite(CoilC, HIGH); //3 on C
+delay(0.125);
+digitalWrite(CoilB, LOW);  //2 off
+delay(3);
+digitalWrite(CoilD, HIGH); //4 on D
+digitalWrite(RLight, HIGH);        //Right Eye
+delay(0.125);
+digitalWrite(LLight,HIGH);         //Left Eye
+digitalWrite(CoilC, LOW);  //3 off
+delay(3);
+digitalWrite(RLight, LOW);
+digitalWrite(CoilE, HIGH); //5 on E
+delay(0.125);
+digitalWrite(LLight, LOW);
+digitalWrite(CoilD, LOW);  //4 off
+delay(3);
+digitalWrite(CoilF, HIGH); //6 on F
+delay(0.125);
+digitalWrite(CoilE, LOW);  //5 off
+delay(3);
+digitalWrite(CoilG, HIGH); //7 on G
+delay(0.125);
+digitalWrite(CoilF, LOW);  //6 off
+delay(3);
+digitalWrite(CoilH, HIGH); //8 on H
+delay(0.125);
+digitalWrite(CoilG, LOW);  //7 off
+delay(3);
+}
+//❤
+
+
+}
 
 //Based on 8 Coil Setup (Timings)-
 //Primer 25ms = 8 Coil Setup.       (Primer 360 seconds)
