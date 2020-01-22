@@ -4,6 +4,9 @@
 //Free to use for Non Comercial Use only.
 
 //To Build your own Device, Building instructions will be up on MindsMend.org by 01/03/2020
+//
+//Members only(Join for free)
+//
 //Head Unit Coil Control//Plain Coded Pre Alpha Ver 00000001. Depending on the Arduino Used Alter Pin Values. 
 //This Should Work on ATMEGA 2560 Chips. 10 Channels Needed
 
@@ -97,7 +100,10 @@ void loop() {
 //Loop through pins.
 //Timings = 1000ms/40hz T= 25ms  //Will use Capacitor To Create 3ms Rise/Fall Time.
 
-//360 second Loop
+//Get Ready 1-2 min WAIT - get comfy on chair like!
+delay(1000*2);
+
+//360 second PRIMER Loop
 //Coils
 for (int i = 0; i <= 360; i++) {
 digitalWrite(CoilA, HIGH); //1 on A       
@@ -142,7 +148,7 @@ delay(20.0);
 
 
 //Binding = 3.125ms = 8 Coil Setup. (Effector 840 seconds)
-//840 Seconds Binding Mode
+//840 Seconds BINDING Mode
 for (int Binding = 0; Binding ++;Binding >=840){
 digitalWrite(CoilA, HIGH); //1 on A       
 delay(0.125);
