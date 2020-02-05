@@ -1,10 +1,10 @@
 //FoldingCircles TM
 //MindsMend.org
 
-//Head Unit Coil Control//Plain Coded Pre Alpha Ver 00000003. Depending on the Arduino Used Alter Pin Values. 
+//Head Unit Coil Control//Plain Coded Pre Alpha Ver 00000003. Depending on the Arduino Used, Alter Pin ID Values!. 
 //Tested and Works fine on ATMEGA 2560 Chips. 10 Channels Needed
 
-//By Brett Palmer 2020.
+//By Brett Palmer 2020.         https://www.facebook.com/brett.palmer.77312
 
 //Based on 8 Coil Setup (Timings)-
 //Primer 25ms = 8 Coil Setup.       (Primer 360 seconds)
@@ -136,7 +136,7 @@ delay(20.0);
 
 //Binding = 3.125ms = 8 Coil Setup. (Effector 840 seconds) 40hz
 //840 Seconds Binding Mode
-timeforloop = 40 * 840; // = 1 sec / once through = 25ms * looptime seconds
+timeforloop = 40 * 840; // = 1 sec / once through (25ms)=40 * looptime seconds(840)
 for (int Binding = 0;Binding <= timeforloop;Binding ++){
 digitalWrite(CoilA, HIGH); //1 on A       
 delay(0.125);
